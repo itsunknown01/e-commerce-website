@@ -1,5 +1,6 @@
 import {
   Button,
+  Card,
   CardActions,
   CardContent,
   CardHeader,
@@ -7,7 +8,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Card } from "../../components/ui/card";
 import { FormatPrice } from "../../lib/utils";
 
 const MainBannerCard: React.FC<{
