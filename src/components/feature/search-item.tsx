@@ -17,6 +17,7 @@ const textFieldStyles = {
     },
   },
   boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Shadow-sm
+  borderRadius: "999px"
 };
 export default function SearchItem() {
   const [searchText, setSearchText] = useState("");
@@ -27,6 +28,7 @@ export default function SearchItem() {
         display: "flex",
         alignItems: "center",
         width: "36rem",
+        borderRadius: "999px"
       }}
     >
       <TextField

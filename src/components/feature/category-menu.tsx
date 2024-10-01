@@ -5,8 +5,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import { categories } from "../../utils/contants";
+import React from "react";
 
 const StyleMenuButton = styled(Button)({
   display: "inline-flex",
@@ -21,24 +20,32 @@ const StyleMenuButton = styled(Button)({
 });
 
 export default function CategoryMenu() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  // const [categories,setCategories] = useState<Category[]>([]);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const response = await axios.get("http://localhost:8000/api/9c41a2ba-be7d-4d14-95c4-90f450496e74/category",{
-  //       headers: {
-  //         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyeWFtYW5nb2hhaW5AZ21haWwuY29tIiwiaWF0IjoxNzI0OTMxNzEzLCJleHAiOjE3MjUwMTgxMTN9.ElWcN4Iuv983LFTq8QXO_J4gDnJP7-5pWyN0llNFOyM"
-  //       }
-  //     })
-  //     console.log(response.data);
-  //     setCategories(response.data);
-  //   }
+  const token = import.meta.env.VITE_CMS_TOKEN || "";
 
-  //   fetchCategories()
-  // },[])
+  const [categories, setCategories] = useState<Category[]>([
+    { id: "1", name: "TV and Audio", image: "" },
+  ]);
 
-  const handleClick = (event) => {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await axios.get(
+        "http://localhost:8000/api/9c41a2ba-be7d-4d14-95c4-90f450496e74/category",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setCategories(response.data);
+    };
+
+    fetchCategories();
+  }, [token]);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -55,7 +62,7 @@ export default function CategoryMenu() {
         Select Category
       </StyleMenuButton>
       <Menu
-        anchorEl={anchorEl} 
+        anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -71,7 +78,7 @@ export default function CategoryMenu() {
       >
         {categories.map((item) => (
           <MenuItem
-            key={item._id}
+            key={item.id}
             onClick={handleClose}
             sx={{
               padding: 0,
@@ -81,7 +88,7 @@ export default function CategoryMenu() {
             }}
           >
             <Link
-              to={`/category/${item._id}`}
+              to={`/category/${item.id}`}
               style={{
                 display: "flex",
                 alignItems: "center",
