@@ -1,117 +1,125 @@
 import {
+  Favorite,
+  FavoriteBorder,
+  ShoppingCartOutlined,
+} from "@mui/icons-material";
+import {
   Box,
   Button,
   Card,
+  CardActions,
   CardContent,
-  Chip,
-  LinearProgress,
+  CardMedia,
+  IconButton,
   Rating,
+  Stack,
   Typography,
 } from "@mui/material";
 import { FormatPrice } from "../../lib/utils";
 import { Product } from "../../types/category";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SpecialCard({ product }: { product: Product }) {
+  const [isLiked, setIsLiked] = useState(false);
+  const navigate = useNavigate()
   return (
     <Card
+      elevation={4}
       sx={{
-        display: "flex",
-        cursor: "pointer",
-        justifyContent: "space-between",
-        px: "0.625rem",
-        py: "1.25rem",
-        textDecoration: "none",
-        backgroundColor: "white",
+        maxWidth: { xs: "350px", sm: "500px" },
+        maxHeight: "800px",
+        py: "20px",
+        borderRadius: "42px",
+        mx: { xs: "auto", sm: 0 },
+        position: "relative",
+        cursor: "pointer"
       }}
+      component="div"
+      onClick={() => navigate(`/${product.id}`)}
     >
-      <Box
-        width="267px"
-        height="267px"
-        component="a"
-        href={`/products/${product.id}`}
-      >
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          style={{
-            objectFit: "contain",
-          }}
-        />
-      </Box>
-      <CardContent>
-        <Typography
-          variant="h5"
-          component="h5"
-          fontWeight="medium"
-          gutterBottom
-        >
-          {product.brand}
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          component="h6"
-          fontWeight="medium"
-          gutterBottom
-        >
-          {product.title}
-        </Typography>
-        <Rating name="read-only" value={product.rating} readOnly size="large" />
-        <Box mt={1} mb={2}>
-          <Typography component="span">
-            <FormatPrice price={product.price} />
-          </Typography>
-          &nbsp;&nbsp;
-          <Typography component="span" sx={{ textDecoration: "line-through" }}>
-            <FormatPrice price={product.price * 1.5} />
-          </Typography>
-        </Box>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Typography component="p" variant="body2">
-            <strong>5</strong> days
-          </Typography>
-          <Box display="flex" gap={1} alignItems="center">
-            {[1, 1, 1].map((item, index) => (
-              <Chip
-                key={index}
-                label={item}
-                sx={{
-                  bgcolor: "#dc3545",
-                  color: "#fff",
-                  borderRadius: "50%",
-                  padding: "8px",
-                  fontSize: "12px",
-                  fontWeight: "bold",
-                }}
-              />
-            ))}
-          </Box>
-        </Box>
-        <Box my={2}>
-          <Typography variant="body2" gutterBottom>
-            {`Products: ${product.stock}`}
-          </Typography>
-          <LinearProgress
-            variant="determinate"
-            value={(product.stock / 100) * 100} // Assuming 100 is the max stock
-            sx={{ color: "primary.main" }}
-          />
-        </Box>
-        <Button
-          variant="contained"
-          color="primary"
+      <CardMedia
+        component="img"
+        height="300"
+        image={product.image}
+        alt={product.title}
+        sx={{
+          maxWidth: "300px",
+          mx: { sm: "auto", xs: 0 },
+          objectFit: "contain",
+          transition: "all 0.2s ease-in-out",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      />
+      <Stack direction="column" position="absolute" top={60} right={28} zIndex="999px">
+        <IconButton
           sx={{
-            bgcolor: "#232f3e",
-            color: "#fff",
-            paddingY: "12px",
-            paddingX: "32px",
-            borderRadius: "25px",
-            zIndex: "999px",
+            bgcolor: "rgba(0, 0, 0, 0.87)",
+            p: "0.65rem",
+            ":hover": {
+              bgcolor: "rgba(0, 0, 0, 0.87)",
+            },
           }}
-            onClick={() => alert("Button Clicked")}
+          onClick={() => setIsLiked(!isLiked)}
         >
-          Add to Cart
-        </Button>
+          {isLiked ? (
+            <Favorite sx={{ color: "white" }} />
+          ) : (
+            <FavoriteBorder sx={{ color: "white" }} />
+          )}
+        </IconButton>
+      </Stack>
+      <CardContent sx={{ mx: "1rem" }}>
+        <Typography variant="h6">{product.title.slice(0, 20)}</Typography>
+        <Rating value={product.rating.rate} />
       </CardContent>
+      <CardActions
+        sx={{
+          display: "flex",
+          mx: "1rem",
+          justifyContent: "space-between",
+          pt: "0 !important",
+        }}
+      >
+        <Stack direction="column">
+          <Box display="flex" justifyContent="center" mb={1}>
+            <Typography variant="h6" color="#81859C" sx={{ marginRight: 2 }}>
+              <del>
+                <FormatPrice price={product.price} />
+              </del>
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "1rem",
+                p: 0.5,
+                color: "white",
+                bgcolor: "rgba(98,84,243,0.6)",
+              }}
+            >
+              -10%
+            </Typography>
+          </Box>
+          <Typography variant="h3" fontSize="1.5rem" fontWeight="600">
+            <FormatPrice price={product.price - product.price / 10} />
+          </Typography>
+        </Stack>
+        <Button
+          sx={{
+            py: "18px",
+            bgcolor: "rgb(98,84,243)",
+            color: "white",
+            borderRadius: "20px",
+            ":hover": {
+              bgcolor: "rgb(98,84,243)",
+              color: "white",
+            },
+          }}
+        >
+          <ShoppingCartOutlined />
+        </Button>
+      </CardActions>
     </Card>
   );
 }
