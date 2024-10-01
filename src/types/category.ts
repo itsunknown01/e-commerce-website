@@ -1,19 +1,25 @@
 export type Category = {
-    id: string;
-    name: string;
-    image: string;
-}
+  id: string;
+  name: string;
+  image: string;
+};
 
 export interface Product {
-    brand: string
-    category: string
-    description: string
-    discountPercentage: number
-    id: number
-    images: []
-    price: number
-    rating: number
-    stock: number
-    thumbnail: string
-    title: string
+  id: string;
+  title: string;
+  brand: string;
+  category: string;
+  description: string;
+  discountPercentage: number;
+  images: [];
+  price: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
+  quantity: number;
+  image: string;
+  IsFeatured: boolean;
+  IsFamous: boolean;
+  IsSpecial: boolean;
 }

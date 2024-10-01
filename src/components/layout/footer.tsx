@@ -14,7 +14,7 @@ import { FaDiscord, FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <Stack component="section" width="100%" bgcolor="rgb(244 244 245/1)">
+    <Stack component="footer" width="100%">
       <Paper
         component="div"
         elevation={4}
@@ -22,7 +22,7 @@ export default function Footer() {
           m: "auto",
           bgcolor: "white",
           maxWidth: "60vw",
-          px: "6rem",
+          px: { xs: "1rem", lg: "6rem" },
           py: "2.5rem",
           borderRadius: "12px",
           border: "white",
@@ -57,9 +57,9 @@ export default function Footer() {
             xs={12}
             md={6}
             container
-            justifyContent="flex-end"
+            justifyContent={{ xs: "center", lg: "flex-end" }}
             alignItems="center"
-            pt="0 !important"
+            pt={{ xs: "1rem", lg: "0 !important" }}
             pl="0 !important"
           >
             <Link href="/contact" style={{ textDecoration: "none" }}>
@@ -84,9 +84,8 @@ export default function Footer() {
       </Paper>
 
       <Box
-        component="footer"
         pt="8rem"
-        bgcolor="rgb(31 41 55)"
+        bgcolor="rgb(17 24 39)"
         color="white"
         pb="1rem"
         textAlign="center"
@@ -97,9 +96,10 @@ export default function Footer() {
           mx={"auto"}
           mb="2rem"
           spacing={2}
+          gap={{ xs: 2, sm: 0 }}
           mt="0 !important"
         >
-          <Grid item xs={12} md={3} pt="0 !important" pl="0 !important">
+          <Grid item xs={12} md={3} pt="0 !important" px="1rem !important">
             <Typography mb="1.25rem">Unknown</Typography>
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -115,11 +115,11 @@ export default function Footer() {
               display="flex"
               flexDirection="column"
               mx="2rem"
-              gap="0.5rem"
+              gap="1rem"
             >
               <Input
                 type="email"
-                placeholder="your e-email"
+                placeholder="Type your e-email"
                 sx={{ color: "white", borderColor: "white" }}
               />
               <Button
@@ -157,10 +157,10 @@ export default function Footer() {
           </Grid>
         </Grid>
 
-        <Divider sx={{bgcolor: "white"}} />
+        <Divider sx={{ bgcolor: "white" }} />
 
         <Box mt="0.75rem">
-            <Typography>© 2023 All Rights Reserved by Unknown</Typography>
+          <Typography>© 2023 All Rights Reserved by Unknown</Typography>
         </Box>
       </Box>
     </Stack>

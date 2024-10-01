@@ -1,11 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardHeader,
-  CardMedia,
-  Stack
-} from "@mui/material";
+import { Card, CardHeader, CardMedia, Stack } from "@mui/material";
 import React from "react";
 
 const SmallBannerCard: React.FC<{
@@ -13,7 +6,7 @@ const SmallBannerCard: React.FC<{
     title: string;
     description: string;
     price: number;
-    thumbnail: string;
+    image: string;
   };
 }> = ({ product }) => {
   return (
@@ -23,10 +16,35 @@ const SmallBannerCard: React.FC<{
         display: "flex",
         position: "relative",
         overflow: "hidden",
-        background: "white",
-      }}
+        height: "380px",
+        width: "320px",
+        justifyContent: "center",
+        mx: "auto",
+        p: "1.5rem",
+       }}
     >
-      <Stack direction="column" justifyContent="center" ml="10px">
+      <CardMedia
+        component="img"
+        image={product.image}
+        style={{
+          height: "100%",
+          width: "100%",
+          objectFit: "contain",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: "66.666667%",
+          opacity: "0.5",
+          backgroundImage:
+            "linear-gradient(to top, #1f2937 1%, rgba(31, 41, 55, 0) 100%)",
+        }}
+      />
+      <Stack direction="column" position="absolute" bottom="0px" left="0px">
         <CardHeader
           title={product.title}
           titleTypographyProps={{
@@ -35,24 +53,7 @@ const SmallBannerCard: React.FC<{
             fontSize: "1.1rem",
           }}
         />
-        <CardActions>
-          <Button variant="contained" color="secondary">
-            Shop Now
-          </Button>
-        </CardActions>
       </Stack>
-      <CardMedia
-        component="img"
-        image={product.thumbnail}
-        style={{
-          height: "200px",
-          width: "auto",
-          objectFit: "contain",
-          borderRadius: "10px",
-          backgroundBlendMode: "multiply",
-          background: "inherit",
-        }}
-      />
     </Card>
   );
 };

@@ -7,11 +7,10 @@ export default function ProductCard({ product }: { product: Product }) {
     <Card
       sx={{
         textDecoration: "none",
-        width: "350px",
-        height: "300px",
-        backgroundColor: "rgba(0, 0, 0, 0.05)",
+        width: "100%",
+        height: "100%",
       }}
-      elevation={2}
+      elevation={0}
     >
       <CardContent
         component="a"
@@ -42,30 +41,30 @@ export default function ProductCard({ product }: { product: Product }) {
           borderRadius: "0.5rem",
         }}
       >
-          <img
-            src={product.thumbnail}
-            width={300}
-            height={200}
-            alt={product.title}
-            style={{
-              objectFit: "contain",
-              transition: "all 0.5 linear",
-            }}
-          />
-          <Typography
-            style={{
-              position: "absolute",
-              top: "5%",
-              right: "2%",
-              textTransform: "uppercase",
-              backgroundColor: "rgb(250 250 250 / 1)",
-              color: "black",
-              padding: "0.5rem 0.75rem",
-              borderRadius: "2rem",
-            }}
-          >
-            {product.category}
-          </Typography>
+        <img
+          src={product.image}
+          alt={product.title}
+          width="100%"
+          height={421.21}
+          style={{
+            objectFit: "contain",
+            transition: "all 0.5 linear",
+          }}
+        />
+        <Typography
+          style={{
+            position: "absolute",
+            top: "5%",
+            right: "2%",
+            textTransform: "uppercase",
+            backgroundColor: "rgb(250 250 250 / 1)",
+            color: "black",
+            padding: "0.5rem 0.75rem",
+            borderRadius: "2rem",
+          }}
+        >
+          {product.category}
+        </Typography>
       </CardContent>
       <Box
         display="flex"
@@ -81,7 +80,7 @@ export default function ProductCard({ product }: { product: Product }) {
           textTransform="capitalize"
           color="rgba(29,29,29,0.8)"
         >
-          {product.title}
+          {product.title.slice(0, 20)}
         </Typography>
         <Typography variant="body2" color="rgb(132,144,255)">
           <FormatPrice price={product.price} />
